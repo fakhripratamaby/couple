@@ -891,3 +891,16 @@ a:focus-visible,
     100% { box-shadow: 0 0 0 0 rgba(255, 117, 151, 0); }
 }
 
+/* ================== PERBAIKAN ANIMASI SLIDER ================== */
+#sliderTrack {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    transition: transform 0.4s ease-in-out !important; /* Kecepatan dan efek mulus */
+    height: 100%;
+}
+
+.slide {
+    flex: 0 0 100% !important; /* Memaksa setiap foto mengambil tepat 100% lebar layar */
+    width: 100% !important;
+    overflow: hidden;
+}
