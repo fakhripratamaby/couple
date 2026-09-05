@@ -61,11 +61,19 @@ try {
 }
 
 function saveData() {
+    // 1. KIRIM KE FIREBASE DULU (Prioritas Utama)
+    if (db) {
+        set(ref(db, 'coupleData'), siteData).catch(err => console.log("Gagal kirim ke Firebase:", err));
+    }
+
+    // 2. Simpan ke memori lokal browser (Hanya Cadangan)
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData));
-        if (db) set(ref(db, 'coupleData'), siteData); // Kirim ke Firebase jika aktif
         return true;
-    } catch (err) { return false; }
+    } catch (err) {
+        console.warn("Memori lokal penuh, tapi data aman meluncur ke Firebase.");
+        return false;
+    }
 }
 
 // ================== Galeri (slider dinamis) ==================
