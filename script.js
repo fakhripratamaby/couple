@@ -280,7 +280,7 @@ function openAdmin() {
     else {
         adminLock.hidden = false;
         adminContent.hidden = true;
-        adminLockHint.textContent = 'Masukkan PIN (Bawaan: 1111)';
+        adminLockHint.textContent = 'Masukkan PIN';
     }
 }
 function closeAdmin() { if(adminOverlay) adminOverlay.classList.remove('is-open'); }
