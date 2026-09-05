@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fakhri & Chatarina — Eternal Journey</title>
+    <meta name="description" content="Perjalanan cinta Fakhri & Chatarina — hitungan hari, kisah, dan kenangan yang terus bertumbuh.">
+    <meta property="og:title" content="Fakhri & Chatarina — Eternal Journey">
+    <meta property="og:description" content="Perjalanan cinta Fakhri & Chatarina — hitungan hari, kisah, dan kenangan yang terus bertumbuh.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='24' font-size='26'%3E%F0%9F%92%9B%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+        <div class="ember-field" aria-hidden="true">
+        <span class="ember"></span>
+        <span class="ember"></span>
+        <span class="ember"></span>
+        <span class="ember"></span>
+        <span class="ember"></span>
+        <span class="ember"></span>
+        
+        <span class="ember" style="left: 15%; animation-delay: 2s; animation-duration: 15s;"></span>
+        <span class="ember" style="left: 45%; animation-delay: 5s; animation-duration: 12s;"></span>
+        <span class="ember" style="left: 85%; animation-delay: 1s; animation-duration: 16s;"></span>
+    </div>
+
+    <div class="container">
+        <header class="hero">
+            <span class="sub-title">Merayakan perjalanan cinta kita</span>
+            <h1 class="names">Fakhri <span class="gold-symbol">&</span> Chatarina</h1>
+            <div class="divider"></div>
+        </header>
+
+        <section class="timer-card reveal">
+            <h2>Kisah Cinta Kita Berjalan Selama</h2>
+            <div class="countdown-grid">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <label>HARI</label>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <label>JAM</label>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <label>MENIT</label>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <label>DETIK</label>
+                </div>
+            </div>
+            <p class="next-anniversary" id="nextAnniversary"></p>
+        </section>
+
+        <section class="timeline-section">
+            <h2 class="section-title reveal">Timeline Kita</h2>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="dot"></div>
+                    <div class="timeline-content">
+                        <h3>Awal Pertemuan</h3>
+                        <p>Momen pertama kali kita saling kenal dan memulai perbincangan.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="dot"></div>
+                    <div class="timeline-content">
+                        <h3>Official Jadian</h3>
+                        <p>Awal resmi dari perjalanan indah dua hati yang berkomitmen bersama.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="dot"></div>
+                    <div class="timeline-content">
+                        <h3>Masa Depan</h3>
+                        <p>Menuju babak-babak baru dalam hidup yang siap kita lewati bersama.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <h2 class="section-title reveal">Galeri Kenangan</h2>
+            <div class="gallery-slider reveal" id="gallerySlider" aria-label="Galeri foto">
+                <div class="slider-track" id="sliderTrack"></div>
+                <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Foto sebelumnya">‹</button>
+                <button class="slider-arrow slider-next" id="sliderNext" aria-label="Foto berikutnya">›</button>
+                <div class="slider-dots" id="sliderDots"></div>
+            </div>
+        </section>
+
+        <section class="note-section reveal">
+            <p>&ldquo;Dan cerita ini akan terus kita tulis, satu hari indah demi hari indah.&rdquo;</p>
+        </section>
+
+        <footer>
+            <p>Designed with ❤️ for Fakhri & Chatarina</p>
+        </footer>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Tutup">&times;</button>
+        <div class="lightbox-frame" id="lightboxFrame"></div>
+    </div>
+
+    <button class="admin-toggle" id="adminToggle" aria-label="Buka panel admin" title="Panel admin">⚙</button>
+
+    <div class="admin-overlay" id="adminOverlay">
+        <div class="admin-panel">
+            <button class="admin-panel-close" id="adminPanelClose" aria-label="Tutup panel">&times;</button>
+
+            <div class="admin-lock" id="adminLock">
+                <h2>Masuk sebagai Admin</h2>
+                <p class="admin-hint" id="adminLockHint">Masukkan PIN untuk mengedit situs.</p>
+                <input type="password" id="pinInput" inputmode="numeric" autocomplete="off" placeholder="PIN">
+                <button class="admin-btn" id="pinSubmit">Masuk</button>
+                <p class="admin-forgot">Lupa PIN? Hapus data situs lewat pengaturan privasi/cache browser di perangkat ini, lalu atur PIN baru.</p>
+            </div>
+
+            <div class="admin-content" id="adminContent" hidden>
+                <h2>Panel Admin</h2>
+              <section class="admin-section">
+    <h3>Ubah Tema UI</h3>
+    <select id="themeSelect" style="width: 100%; padding: 10px; border-radius: 8px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2); outline: none;">
+        <option value="dark">Dark Theme (Bawaan)</option>
+        <option value="pink">Romantic Pink</option>
+        <option value="blue">Midnight Blue</option>
+        <option value="coffee">Warm Coffee</option>
+    </select>
+</section>
+
+
+                <section class="admin-section">
+                    <h3>Tanggal &amp; Jam Mulai</h3>
+                    <input type="datetime-local" id="startDateInput">
+                    <button class="admin-btn" id="saveDateBtn">Simpan Tanggal</button>
+                    <p class="admin-status" id="dateStatus"></p>
+                </section>
+
+                <section class="admin-section">
+                    <h3>Kelola Foto</h3>
+                    <div class="admin-photo-list" id="adminPhotoList"></div>
+                    <button class="admin-btn admin-btn-outline" id="addPhotoBtn">+ Tambah Foto</button>
+                    <input type="file" id="photoFileInput" accept="image/*" hidden>
+                    <p class="admin-status" id="photoStatus"></p>
+                </section>
+              <section class="admin-section">
+    <h3>Atur Musik Latar</h3>
+    <p style="font-size: 12px; margin-bottom: 10px; color: #ccc;">Pilih file lagu dari perangkat Anda (Maksimal 3MB agar bisa tersimpan di memori browser).</p>
+    <input type="file" id="musicFileInput" accept="audio/*" style="width: 100%; padding: 10px; border-radius: 8px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2); outline: none; margin-bottom: 10px;">
+
+    <button class="admin-btn" id="saveMusicBtn">Simpan Musik</button>
+    <p class="admin-status" id="musicStatus"></p>
+</section>
+
+
+                <button class="admin-btn admin-btn-ghost" id="resetSiteBtn">Kembalikan ke tampilan awal</button>
+                <p class="admin-note">Perubahan tersimpan hanya di browser perangkat ini.</p>
+            </div>
+        </div>
+    </div>
+<!-- Pemutar Musik Kenangan -->
+<audio id="bgMusic" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+<button id="musicBtn" class="music-btn">🎵</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
