@@ -54,6 +54,7 @@ try {
             updateCounter();
             updateNextAnniversary();
             renderAdminPhotoList();
+            renderSocials();
         }
     });
 } catch (error) {
@@ -505,3 +506,48 @@ function createFloatingSymbol() {
     setTimeout(() => symbol.remove(), dur * 1000);
 }
 setInterval(createFloatingSymbol, 1000);
+
+// ================== Fitur Sosial Media ==================
+function renderSocials() {
+    if(!siteData.socials) siteData.socials = {};
+    const fi = document.getElementById('linkFakhriIg');
+    const ft = document.getElementById('linkFakhriTiktok');
+    const ki = document.getElementById('linkKetrynIg');
+    const kt = document.getElementById('linkKetrynTiktok');
+    
+    if(fi) { fi.href = siteData.socials.fakhriIg || '#'; fi.hidden = !siteData.socials.fakhriIg; }
+    if(ft) { ft.href = siteData.socials.fakhriTiktok || '#'; ft.hidden = !siteData.socials.fakhriTiktok; }
+    if(ki) { ki.href = siteData.socials.ketrynIg || '#'; ki.hidden = !siteData.socials.ketrynIg; }
+    if(kt) { kt.href = siteData.socials.ketrynTiktok || '#'; kt.hidden = !siteData.socials.ketrynTiktok; }
+}
+
+const saveSocialBtn = document.getElementById('saveSocialBtn');
+if(saveSocialBtn) {
+    saveSocialBtn.addEventListener('click', () => {
+        if(!siteData.socials) siteData.socials = {};
+        siteData.socials.fakhriIg = document.getElementById('inputFakhriIg').value;
+        siteData.socials.fakhriTiktok = document.getElementById('inputFakhriTiktok').value;
+        siteData.socials.ketrynIg = document.getElementById('inputKetrynIg').value;
+        siteData.socials.ketrynTiktok = document.getElementById('inputKetrynTiktok').value;
+        
+        saveData(); // Mengirim langsung ke Firebase
+        renderSocials();
+        showStatus('socialStatus', 'Tautan berhasil disinkronisasi!');
+    });
+}
+
+// Menampilkan data saat admin panel dibuka
+const originalShowAdminContent = showAdminContent;
+showAdminContent = function() {
+    originalShowAdminContent();
+    if(!siteData.socials) siteData.socials = {};
+    const iFi = document.getElementById('inputFakhriIg');
+    const iFt = document.getElementById('inputFakhriTiktok');
+    const iKi = document.getElementById('inputKetrynIg');
+    const iKt = document.getElementById('inputKetrynTiktok');
+    
+    if(iFi) iFi.value = siteData.socials.fakhriIg || '';
+    if(iFt) iFt.value = siteData.socials.fakhriTiktok || '';
+    if(iKi) iKi.value = siteData.socials.ketrynIg || '';
+    if(iKt) iKt.value = siteData.socials.ketrynTiktok || '';
+};
