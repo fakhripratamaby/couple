@@ -601,3 +601,46 @@ showAdminContent = function() {
     if(iKi) iKi.value = siteData.socials.ketrynIg || '';
     if(iKt) iKt.value = siteData.socials.ketrynTiktok || '';
 };
+
+// Fungsi untuk memunculkan daftar sosmed di Panel Admin
+function renderAdminSocialList() {
+    const listEl = document.getElementById('adminSocialList');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+
+    if (siteData.socialList && siteData.socialList.length > 0) {
+        siteData.socialList.forEach((soc, index) => {
+            const item = document.createElement('div');
+            item.className = 'admin-socmed-item';
+            const personName = soc.person === 'fakhri' ? 'Fakhri' : 'Chatarina';
+            
+            item.innerHTML = `
+                <div class="admin-socmed-info">
+                    <img src="${soc.icon}" style="width: 20px; height: 20px; border-radius: 4px; object-fit: cover;">
+                    <span><b>${personName}</b>: ${soc.name}</span>
+                </div>
+                <button class="btn-delete-socmed" onclick="hapusSosmed(${index})">Hapus</button>
+            `;
+            listEl.appendChild(item);
+        });
+    } else {
+        listEl.innerHTML = '<p style="font-size: 12px; color: #ccc;">Belum ada sosmed yang ditambahkan.</p>';
+    }
+}
+
+// Fungsi eksekusi hapus satu per satu
+window.hapusSosmed = function(index) {
+    if (confirm('Yakin ingin menghapus sosmed ini?')) {
+        siteData.socialList.splice(index, 1);
+        saveData(); 
+        renderSocials(); 
+        renderAdminSocialList();
+    }
+};
+
+// Pastikan daftar ini juga ikut termuat saat fungsi renderSocials dipanggil
+const originalRenderSocials = renderSocials;
+renderSocials = function() {
+    originalRenderSocials();
+    renderAdminSocialList();
+};
