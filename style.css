@@ -904,3 +904,51 @@ a:focus-visible,
     width: 100% !important;
     overflow: hidden;
 }
+
+/* ================== SOSIAL MEDIA ================== */
+.social-cards {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+.social-card {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.social-card h4 {
+    margin-bottom: 0.8rem;
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+.social-card a {
+    display: block;
+    margin: 0.5rem 0;
+    color: #ff4b82;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.social-card a:hover {
+    color: #fff;
+    transform: scale(1.05);
+}
+.social-card a[hidden] {
+    display: none;
+}
+.admin-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+.admin-section input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+}
