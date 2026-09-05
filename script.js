@@ -4,13 +4,15 @@ import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebase
 
 // 🔴 SANGAT PENTING: Ganti isi kotak di bawah ini dengan kode konfigurasi asli milik Anda!
 const firebaseConfig = {
-    // apiKey: "AIzaSy...",
-    // authDomain: "...",
-    // projectId: "...",
-    // storageBucket: "...",
-    // messagingSenderId: "...",
-    // appId: "..."
-};
+  apiKey: "AIzaSyDb1TVc8MVEXb5Hqrv-iBZ8hpiXkxo_cUc",
+  authDomain: "couple11112025.firebaseapp.com",
+  databaseURL: "https://couple11112025-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "couple11112025",
+  storageBucket: "couple11112025.firebasestorage.app",
+  messagingSenderId: "589503196514",
+  appId: "1:589503196514:web:420a7007c14dca552f503b",
+  measurementId: "G-R2L9VPPDSB"
+}
 // -----------------------------------------------------------
 
 // ================== Data & penyimpanan ==================
