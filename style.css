@@ -952,3 +952,25 @@ a:focus-visible,
     border: none;
     background: rgba(255, 255, 255, 0.9);
 }
+
+.socmed-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+    color: #ff4b82;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.socmed-item:hover {
+    color: #fff;
+    transform: scale(1.05);
+}
+.socmed-icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 6px;
+}
