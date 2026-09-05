@@ -173,13 +173,19 @@
 </section>
 
 <div class="admin-section">
-    <h3>Tautan Sosial Media</h3>
-    <input type="text" id="inputFakhriIg" placeholder="Link IG Fakhri (https://...)">
-    <input type="text" id="inputFakhriTiktok" placeholder="Link TikTok Fakhri (https://...)">
-    <input type="text" id="inputKetrynIg" placeholder="Link IG Chatarina (https://...)">
-    <input type="text" id="inputKetrynTiktok" placeholder="Link TikTok Chatarina (https://...)">
-    <button id="saveSocialBtn" class="admin-btn">Simpan Sosmed</button>
-    <div id="socialStatus" style="color: #4ade80; font-size: 0.9rem; margin-top: 5px;"></div>
+    <h3>Tambahkan Sosial Media Baru</h3>
+    <select id="socMedPerson" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px;">
+        <option value="fakhri">Milik Fakhri</option>
+        <option value="chatarina">Milik Chatarina</option>
+    </select>
+    <input type="text" id="socMedName" placeholder="Nama Sosmed (misal: Twitter/X)">
+    <input type="text" id="socMedUrl" placeholder="Link Profil (https://...)">
+    <p style="font-size: 12px; margin-bottom: 5px; color: #ccc;">Upload Gambar Ikon:</p>
+    <input type="file" id="socMedIcon" accept="image/*" style="width: 100%; margin-bottom: 10px;">
+    
+    <button id="addSocialBtn" class="admin-btn">Tambah Sosmed</button>
+    <button id="resetSocialBtn" class="admin-btn admin-btn-ghost" style="margin-top: 10px;">Hapus Semua Sosmed</button>
+    <div id="socialStatus" style="font-size: 0.9rem; margin-top: 5px;"></div>
 </div>
                 <button class="admin-btn admin-btn-ghost" id="resetSiteBtn">Kembalikan ke tampilan awal</button>
                 <p class="admin-note">Perubahan tersimpan hanya di browser perangkat ini.</p>
