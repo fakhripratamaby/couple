@@ -974,3 +974,32 @@ a:focus-visible,
     object-fit: cover;
     border-radius: 6px;
 }
+
+.admin-socmed-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.admin-socmed-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+.btn-delete-socmed {
+    background: #ff4b4b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: 0.2s;
+}
+.btn-delete-socmed:hover {
+    background: #ff1f1f;
+}
