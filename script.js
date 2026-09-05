@@ -507,18 +507,68 @@ function createFloatingSymbol() {
 }
 setInterval(createFloatingSymbol, 1000);
 
-// ================== Fitur Sosial Media ==================
+// ================== Fitur Sosial Media Dinamis ==================
 function renderSocials() {
-    if(!siteData.socials) siteData.socials = {};
-    const fi = document.getElementById('linkFakhriIg');
-    const ft = document.getElementById('linkFakhriTiktok');
-    const ki = document.getElementById('linkKetrynIg');
-    const kt = document.getElementById('linkKetrynTiktok');
-    
-    if(fi) { fi.href = siteData.socials.fakhriIg || '#'; fi.hidden = !siteData.socials.fakhriIg; }
-    if(ft) { ft.href = siteData.socials.fakhriTiktok || '#'; ft.hidden = !siteData.socials.fakhriTiktok; }
-    if(ki) { ki.href = siteData.socials.ketrynIg || '#'; ki.hidden = !siteData.socials.ketrynIg; }
-    if(kt) { kt.href = siteData.socials.ketrynTiktok || '#'; kt.hidden = !siteData.socials.ketrynTiktok; }
+    const lf = document.getElementById('linksFakhri');
+    const lc = document.getElementById('linksChatarina');
+    if(!lf || !lc) return;
+
+    lf.innerHTML = ''; lc.innerHTML = '';
+
+    if (siteData.socialList && siteData.socialList.length > 0) {
+        siteData.socialList.forEach(soc => {
+            const a = document.createElement('a');
+            a.href = soc.url; a.target = '_blank'; a.className = 'socmed-item';
+            a.innerHTML = `<img src="${soc.icon}" class="socmed-icon-img" alt="${soc.name}"> ${soc.name}`;
+            if (soc.person === 'fakhri') lf.appendChild(a);
+            else if (soc.person === 'chatarina') lc.appendChild(a);
+        });
+    }
+}
+
+const addSocialBtn = document.getElementById('addSocialBtn');
+if (addSocialBtn) {
+    addSocialBtn.addEventListener('click', () => {
+        const person = document.getElementById('socMedPerson').value;
+        const name = document.getElementById('socMedName').value;
+        const url = document.getElementById('socMedUrl').value;
+        const fileInput = document.getElementById('socMedIcon');
+        const statusEl = document.getElementById('socialStatus');
+
+        if (!name || !url || fileInput.files.length === 0) {
+            statusEl.textContent = 'Nama, Link, dan Ikon wajib diisi!';
+            statusEl.style.color = '#ff4b4b';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if (!siteData.socialList) siteData.socialList = [];
+            siteData.socialList.push({
+                id: Date.now().toString(), person: person, name: name, url: url, icon: e.target.result
+            });
+            
+            saveData(); renderSocials();
+            statusEl.textContent = 'Sosmed berhasil ditambahkan!';
+            statusEl.style.color = '#4ade80';
+            
+            document.getElementById('socMedName').value = '';
+            document.getElementById('socMedUrl').value = '';
+            fileInput.value = '';
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+    });
+}
+
+const resetSocialBtn = document.getElementById('resetSocialBtn');
+if (resetSocialBtn) {
+    resetSocialBtn.addEventListener('click', () => {
+        if (confirm('Yakin ingin menghapus semua tautan sosmed?')) {
+            siteData.socialList = [];
+            saveData(); renderSocials();
+            document.getElementById('socialStatus').textContent = 'Semua sosmed dikosongkan.';
+        }
+    });
 }
 
 const saveSocialBtn = document.getElementById('saveSocialBtn');
