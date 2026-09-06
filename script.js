@@ -644,3 +644,68 @@ renderSocials = function() {
     originalRenderSocials();
     renderAdminSocialList();
 };
+// ================== Fitur Upload Video Pribadi ==================
+function renderVideo() {
+    const vc = document.getElementById('videoContainer');
+    if (!vc) return;
+    
+    if (siteData.videoData) {
+        // Menampilkan pemutar video langsung di web
+        vc.innerHTML = `<video src="${siteData.videoData}" controls autoplay loop muted style="width: 100%; height: 100%; object-fit: cover;"></video>`;
+    } else {
+        vc.innerHTML = '<p style="color: #ccc; text-align: center;">Belum ada video.</p>';
+    }
+}
+
+const saveVideoBtn = document.getElementById('saveVideoBtn');
+if (saveVideoBtn) {
+    saveVideoBtn.addEventListener('click', () => {
+        const fileInput = document.getElementById('inputVideoFile');
+        const vStatus = document.getElementById('videoStatus');
+
+        if (fileInput.files.length === 0) {
+            vStatus.textContent = 'Pilih file video dari galeri Anda!';
+            vStatus.style.color = '#ff4b4b';
+            return;
+        }
+
+        const file = fileInput.files[0];
+        // KUNCI PENGAMAN: Batas maksimal ukuran 3MB
+        if (file.size > 3 * 1024 * 1024) {
+            vStatus.textContent = 'Gagal: Ukuran video lebih dari 3MB! Web bisa macet.';
+            vStatus.style.color = '#ff4b4b';
+            return;
+        }
+
+        vStatus.textContent = 'Memproses video (jangan tutup panel)...';
+        vStatus.style.color = '#fff';
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            siteData.videoData = e.target.result;
+            saveData();
+            renderVideo();
+            vStatus.textContent = 'Video berhasil diupload ke database!';
+            vStatus.style.color = '#4ade80';
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+const deleteVideoBtn = document.getElementById('deleteVideoBtn');
+if (deleteVideoBtn) {
+    deleteVideoBtn.addEventListener('click', () => {
+        siteData.videoData = null;
+        saveData();
+        renderVideo();
+        document.getElementById('videoStatus').textContent = 'Video berhasil dihapus.';
+        document.getElementById('inputVideoFile').value = '';
+    });
+}
+
+// Pastikan fungsi ini dipanggil saat web dimuat
+const originalRenderSocialsForVideo = renderSocials;
+renderSocials = function() {
+    originalRenderSocialsForVideo();
+    renderVideo();
+};
