@@ -181,9 +181,11 @@
 </section>
 
 <div class="admin-section">
-    <h3>Sematan Video</h3>
-    <input type="text" id="inputVideoLink" placeholder="Tempel link YouTube (contoh: https://youtu.be/...)">
-    <button id="saveVideoBtn" class="admin-btn">Tampilkan Video</button>
+    <div class="admin-section">
+    <h3>Upload Video Pendek (Maks 3MB)</h3>
+    <input type="file" id="inputVideoFile" accept="video/mp4,video/webm" style="width: 100%; margin-bottom: 10px;">
+    <button id="saveVideoBtn" class="admin-btn">Upload & Simpan Video</button>
+    <button id="deleteVideoBtn" class="admin-btn admin-btn-ghost" style="margin-top: 10px;">Hapus Video</button>
     <div id="videoStatus" style="font-size: 0.9rem; margin-top: 5px;"></div>
 </div>
 
