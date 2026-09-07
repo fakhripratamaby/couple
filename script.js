@@ -670,9 +670,9 @@ if (saveVideoBtn) {
         }
 
         const file = fileInput.files[0];
-        // KUNCI PENGAMAN: Batas maksimal ukuran 3MB
-        if (file.size > 3 * 1024 * 1024) {
-            vStatus.textContent = 'Gagal: Ukuran video lebih dari 3MB! Web bisa macet.';
+        // KUNCI PENGAMAN: Batas maksimal ukuran 50MB
+        if (file.size > 50 * 1024 * 1024) {
+            vStatus.textContent = 'Gagal: Ukuran video lebih dari 50MB! Web bisa macet.';
             vStatus.style.color = '#ff4b4b';
             return;
         }
