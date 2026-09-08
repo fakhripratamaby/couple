@@ -1138,3 +1138,9 @@ a:focus-visible,
     z-index: 10;
     box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.4);
 }
+
+.slide {
+    /* Biarkan kode ukuran atau display yang sudah ada sebelumnya */
+    background: transparent !important; /* Membuat kotak di belakang foto jadi bening */
+    box-shadow: none !important; /* Menghilangkan efek bayangan kotak lama */
+}
