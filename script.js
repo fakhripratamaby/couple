@@ -106,7 +106,7 @@ function renderGallery() {
         const slide = document.createElement('div');
         slide.className = 'slide';
         slide.setAttribute('role', 'button');
-        slide.innerHTML = photo.src ? `<img src="${photo.src}" alt="Foto ${index + 1}">` : `<div class="photo-placeholder">${heartIcon()}<span>Foto ${index + 1}</span></div>`;
+        slide.innerHTML = photo.src ? `<div class="scrapbook-item" style="margin: 0 auto;"><img src="${photo.src}" alt="Foto ${index + 1}"></div>` : `<div class="slide-empty">Belum ada foto.</div>`;
         slide.addEventListener('click', () => openLightbox(slide));
         sliderTrack.appendChild(slide);
         const dot = document.createElement('button');
