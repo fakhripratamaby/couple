@@ -1144,3 +1144,62 @@ a:focus-visible,
     background: transparent !important; /* Membuat kotak di belakang foto jadi bening */
     box-shadow: none !important; /* Menghilangkan efek bayangan kotak lama */
 }
+
+/* ================= GALERI BERSERAKAN ================= */
+.scrapbook-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 3rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.scrapbook-item {
+    position: relative;
+    background: #fdfdfd;
+    padding: 10px 10px 45px 10px; /* Ruang bawah khas polaroid */
+    border-radius: 3px;
+    box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.15);
+    width: 170px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0s;
+}
+
+.scrapbook-item img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+/* Efek Selotip Kertas */
+.scrapbook-item::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-4deg);
+    width: 75px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    backdrop-filter: blur(3px);
+    z-index: 2;
+}
+
+/* Pola Kemiringan Acak yang Natural */
+.scrapbook-item:nth-child(1n) { transform: rotate(-5deg) translateY(10px); }
+.scrapbook-item:nth-child(2n) { transform: rotate(4deg) translateY(-10px); }
+.scrapbook-item:nth-child(3n) { transform: rotate(-3deg) translateY(15px); }
+.scrapbook-item:nth-child(4n) { transform: rotate(6deg) translateY(-5px); }
+.scrapbook-item:nth-child(5n) { transform: rotate(-2deg) translateY(5px); }
+
+/* Interaksi saat disentuh Ketryn */
+.scrapbook-item:hover {
+    transform: scale(1.2) rotate(0deg);
+    z-index: 10;
+    box-shadow: 5px 15px 30px rgba(0, 0, 0, 0.4);
+}
