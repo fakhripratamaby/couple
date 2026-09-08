@@ -90,89 +90,30 @@ function heartIcon() {
 }
 
 function renderGallery() {
-    if(!sliderTrack) return;
-    sliderTrack.innerHTML = '';
-    sliderDots.innerHTML = '';
-    currentSlide = 0;
-    stopAutoplay();
-    if (siteData.photos.length === 0) {
-        sliderTrack.innerHTML = '<div class="slide-empty">Belum ada foto. Tambahkan lewat panel admin.</div>';
-        if(sliderPrev) sliderPrev.hidden = true;
-        if(sliderNext) sliderNext.hidden = true;
-        if(sliderDots) sliderDots.hidden = true;
+    const gallery = document.getElementById('scrapbookGallery');
+    if (!gallery) return;
+    
+    gallery.innerHTML = '';
+    
+    if (!siteData.photos || siteData.photos.length === 0) {
+        gallery.innerHTML = '<p style="text-align: center; color: #ccc; width: 100%;">Belum ada foto. Tambahkan lewat panel admin.</p>';
         return;
     }
-    siteData.photos.forEach((photo, index) => {
-        const slide = document.createElement('div');
-        slide.className = 'slide';
-        slide.setAttribute('role', 'button');
-        slide.innerHTML = photo.src ? `<div class="scrapbook-item" style="margin: 0 auto;"><img src="${photo.src}" alt="Foto ${index + 1}"></div>` : `<div class="slide-empty">Belum ada foto.</div>`;
-        slide.addEventListener('click', () => openLightbox(slide));
-        sliderTrack.appendChild(slide);
-        const dot = document.createElement('button');
-        dot.className = 'slider-dot';
-        dot.addEventListener('click', () => { goToSlide(index); restartAutoplay(); });
-        sliderDots.appendChild(dot);
-    });
-    const multiple = siteData.photos.length > 1;
-    if(sliderPrev) sliderPrev.hidden = !multiple;
-    if(sliderNext) sliderNext.hidden = !multiple;
-    if(sliderDots) sliderDots.hidden = !multiple;
-    goToSlide(0);
-    startAutoplay();
-}
-
-function goToSlide(index) {
-    const total = siteData.photos.length;
-    if (total === 0) return;
-    currentSlide = (index + total) % total;
     
-    // Tambahkan efek animasi geser yang mulus di sini
-    sliderTrack.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-    sliderTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-    Array.from(sliderDots.children).forEach((dot, i) => dot.classList.toggle('is-active', i === currentSlide));
-}
-function nextSlide() { goToSlide(currentSlide + 1); }
-function prevSlide() { goToSlide(currentSlide - 1); }
-function startAutoplay() {
-    stopAutoplay();
-    if (siteData.photos.length <= 1) return;
-    autoplayTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
-}
-function stopAutoplay() {
-    if (autoplayTimer) clearInterval(autoplayTimer);
-    autoplayTimer = null;
-}
-function restartAutoplay() { startAutoplay(); }
-if(sliderNext) sliderNext.addEventListener('click', () => { nextSlide(); restartAutoplay(); });
-if(sliderPrev) sliderPrev.addEventListener('click', () => { prevSlide(); restartAutoplay(); });
-
-// Sensor geser (swipe) untuk layar sentuh HP
-let touchStartX = null;
-
-if (sliderTrack) {
-    // Saat jari mulai menyentuh foto
-    sliderTrack.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        stopAutoplay(); // Hentikan auto-geser sebentar
-    }, { passive: true });
-
-    // Saat jari dilepas dari layar
-    sliderTrack.addEventListener('touchend', (e) => {
-        if (touchStartX === null) return;
-        const deltaX = e.changedTouches[0].clientX - touchStartX;
+    siteData.photos.forEach((photo, index) => {
+        const item = document.createElement('div');
+        item.className = 'scrapbook-item';
+        // Membuat struktur polaroid
+        item.innerHTML = photo.src ? `<img src="${photo.src}" alt="Foto ${index + 1}">` : '';
         
-        // Jarak minimal usapan jari 40px agar responsif
-        if (Math.abs(deltaX) > 40) {
-            if (deltaX < 0) nextSlide(); // Geser ke kiri (foto selanjutnya)
-            else prevSlide(); // Geser ke kanan (foto sebelumnya)
-        }
-        touchStartX = null;
-        restartAutoplay(); // Lanjutkan auto-geser
+        // Mempertahankan fitur klik untuk memperbesar foto (lightbox)
+        item.addEventListener('click', () => {
+            if(typeof openLightbox === 'function') openLightbox(item);
+        });
+        
+        gallery.appendChild(item);
     });
 }
-
 // Panggil render saat pertama kali dimuat
 renderGallery();
 
