@@ -1082,3 +1082,59 @@ a:focus-visible,
     opacity: 0;
     visibility: hidden;
 }
+
+/* ================= GALERI SCRAPBOOK ================= */
+.scrapbook-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 2rem 1rem;
+    overflow: hidden;
+}
+
+.scrapbook-item {
+    position: relative;
+    background: #fdfdfd;
+    padding: 10px 10px 45px 10px; /* Ruang bawah lebar layaknya polaroid */
+    border-radius: 3px;
+    box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.2);
+    width: 220px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0s;
+}
+
+.scrapbook-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+/* Efek Selotip Kertas (Washi Tape) di atas foto */
+.scrapbook-item::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-4deg);
+    width: 90px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    backdrop-filter: blur(3px); 
+    border-radius: 2px;
+    z-index: 2;
+}
+
+/* Rotasi miring acak agar terlihat seperti ditempel manual */
+.scrapbook-item:nth-child(even) { transform: rotate(5deg); }
+.scrapbook-item:nth-child(odd) { transform: rotate(-4deg); }
+.scrapbook-item:nth-child(3n) { transform: rotate(3deg); }
+.scrapbook-item:nth-child(4n) { transform: rotate(-6deg); }
+
+/* Interaksi saat Ketryn menekan/mengarahkan jari ke foto */
+.scrapbook-item:hover {
+    transform: scale(1.15) rotate(0deg);
+    z-index: 10;
+    box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.4);
+}
