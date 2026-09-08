@@ -710,3 +710,18 @@ renderSocials = function() {
     renderVideo();
 };
 
+// ================== LOADING SCREEN ==================
+window.addEventListener('load', () => {
+    // Memberikan jeda 2.5 detik agar animasi detak jantung terlihat
+    setTimeout(() => {
+        const loader = document.getElementById('loadingScreen');
+        if (loader) {
+            loader.classList.add('loading-hidden');
+            // Menghapus elemen dari sistem setelah memudar
+            setTimeout(() => {
+                loader.remove();
+            }, 1000); 
+        }
+    }, 2500); // 2500 milidetik = 2,5 detik
+});
+
