@@ -649,3 +649,24 @@ window.addEventListener('load', () => {
     }, 2500); // 2500 milidetik = 2,5 detik
 });
 
+// ================== Tombol Hapus Video ==================
+const deleteVideoBtn = document.getElementById('deleteVideoBtn');
+if (deleteVideoBtn) {
+    // Hapus event listener lama jika ada (mencegah bug)
+    const newDelBtn = deleteVideoBtn.cloneNode(true);
+    deleteVideoBtn.parentNode.replaceChild(newDelBtn, deleteVideoBtn);
+    
+    newDelBtn.addEventListener('click', () => {
+        siteData.videoLink = ""; // Menghapus data video dari memori
+        document.getElementById('inputVideoLink').value = ""; // Mengosongkan kolom ketik
+        saveData(); // Menyimpan perubahan ke database
+        renderVideo(); // Memuat ulang tampilan layar agar video hilang
+        
+        const vStatus = document.getElementById('videoStatus');
+        if(vStatus) {
+            vStatus.textContent = 'Video berhasil dihapus!';
+            vStatus.style.color = '#ef4444';
+            setTimeout(() => vStatus.textContent = '', 3000);
+        }
+    });
+}
