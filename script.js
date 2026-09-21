@@ -692,3 +692,27 @@ if (openBtn && welcomeScreen) {
         }, 1000); // Menunggu 1 detik hingga efek pudar selesai
     });
 }
+
+// ================== Fitur Play/Pause Tombol Musik Melayang ==================
+const floatingMusicBtn = document.getElementById('musicBtn');
+const audioLatar = document.getElementById('bgMusic');
+
+if (floatingMusicBtn && audioLatar) {
+    // Menghapus perintah lama agar tidak dobel/error
+    const newMusicBtn = floatingMusicBtn.cloneNode(true);
+    floatingMusicBtn.parentNode.replaceChild(newMusicBtn, floatingMusicBtn);
+    
+    newMusicBtn.addEventListener('click', () => {
+        if (audioLatar.paused) {
+            // Jika musik sedang mati, maka putar
+            audioLatar.play();
+            newMusicBtn.style.opacity = '1'; // Tombol menyala terang
+            newMusicBtn.style.transform = 'scale(1)'; // Ukuran normal
+        } else {
+            // Jika musik sedang berputar, maka hentikan sementara (pause)
+            audioLatar.pause();
+            newMusicBtn.style.opacity = '0.5'; // Tombol menjadi redup tanda mati
+            newMusicBtn.style.transform = 'scale(0.9)'; // Sedikit mengecil
+        }
+    });
+}
