@@ -585,42 +585,55 @@ renderSocials = function() {
     originalRenderSocials();
     renderAdminSocialList();
 };
-// ================== Fitur Video Universal ==================
+// ================== Fitur Video Super Universal ==================
 function renderVideo() {
     const vc = document.getElementById('videoContainer');
     if (!vc) return;
     
     if (siteData.videoLink) {
-        let link = siteData.videoLink;
+        let link = siteData.videoLink.trim();
+        
+        // 1. JIKA ITU LINK YOUTUBE
         if (link.includes("youtube.com") || link.includes("youtu.be")) {
             if (link.includes("watch?v=")) link = link.replace("watch?v=", "embed/");
             else if (link.includes("youtu.be/")) link = link.replace("youtu.be/", "www.youtube.com/embed/");
+            link = link.split('&')[0]; // Bersihkan link dari kode pelacak
             vc.innerHTML = `<iframe src="${link}" allowfullscreen></iframe>`;
-        } else {
-            // Memutar video MP4 langsung dari GitHub (Portrait/Landscape)
+        } 
+        
+        // 2. JIKA ITU LINK INSTAGRAM (REELS/POST)
+        else if (link.includes("instagram.com")) {
+            let igLink = link.split('?')[0]; // Bersihkan kode pelacak di belakang link
+            if (!igLink.endsWith('/')) igLink += '/'; // Pastikan ada garis miring
+            igLink += 'embed/'; // Tambahkan kunci ajaib embed Instagram
+            vc.innerHTML = `<iframe src="${igLink}" allowfullscreen scrolling="no" allowtransparency="true" style="background: white;"></iframe>`;
+        }
+        
+        // 3. JIKA ITU LINK TIKTOK
+        else if (link.includes("tiktok.com")) {
+            // Mengambil deretan angka ID video dari link TikTok
+            let videoId = "";
+            if (link.includes("/video/")) {
+                videoId = link.split('/video/')[1].split('?')[0];
+            }
+            
+            if (videoId) {
+                const tkLink = `https://www.tiktok.com/embed/v2/${videoId}`;
+                vc.innerHTML = `<iframe src="${tkLink}" allowfullscreen></iframe>`;
+            } else {
+                vc.innerHTML = `<p style="color: #ff4b82; text-align: center; padding: 40px 0;">Maaf, gunakan link TikTok asli dari browser, bukan link pendek (vt.tiktok).</p>`;
+            }
+        }
+        
+        // 4. JIKA ITU FILE MP4 LOKAL (Contoh: kenangan.mp4)
+        else {
             vc.innerHTML = `<video src="${link}" controls autoplay loop muted playsinline></video>`;
         }
+        
     } else {
         vc.innerHTML = '<p style="color: #ccc; text-align: center; padding: 40px 0;">Belum ada video.</p>';
     }
 }
-
-const saveVideoBtn = document.getElementById('saveVideoBtn');
-if (saveVideoBtn) {
-    saveVideoBtn.addEventListener('click', () => {
-        siteData.videoLink = document.getElementById('inputVideoLink').value;
-        // Hapus data video base64 lama jika masih nyangkut agar memori lega
-        if (siteData.videoData) delete siteData.videoData; 
-        saveData();
-        renderVideo();
-        
-        const vStatus = document.getElementById('videoStatus');
-        vStatus.textContent = 'Berhasil! Video langsung tayang.';
-        vStatus.style.color = '#4ade80';
-        setTimeout(() => vStatus.textContent = '', 3000);
-    });
-}
-
 
 // Pastikan fungsi ini dipanggil saat web dimuat
 const originalRenderSocialsForVideo = renderSocials;
