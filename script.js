@@ -586,7 +586,7 @@ renderSocials = function() {
     renderAdminSocialList();
 };
 
-// ================== Fitur Video Super Universal ==================
+// ================== Fitur Video Super Universal (Tanpa Autoplay) ==================
 function renderVideo() {
     const vc = document.getElementById('videoContainer');
     if (!vc) return;
@@ -598,13 +598,14 @@ function renderVideo() {
             if (link.includes("watch?v=")) link = link.replace("watch?v=", "embed/");
             else if (link.includes("youtu.be/")) link = link.replace("youtu.be/", "www.youtube.com/embed/");
             link = link.split('&')[0]; 
-            vc.innerHTML = `<iframe src="${link}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="width: 100%; height: 100%; border: none;"></iframe>`;
+            // Menghapus 'autoplay' dari izin iframe
+            vc.innerHTML = `<iframe src="${link}" allow="encrypted-media; fullscreen" allowfullscreen style="width: 100%; height: 100%; border: none;"></iframe>`;
         } 
         else if (link.includes("instagram.com")) {
             let igLink = link.split('?')[0]; 
             if (!igLink.endsWith('/')) igLink += '/'; 
             igLink += 'embed/'; 
-            vc.innerHTML = `<iframe src="${igLink}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no" allowtransparency="true" style="background: white; width: 100%; height: 100%; border: none;"></iframe>`;
+            vc.innerHTML = `<iframe src="${igLink}" allow="encrypted-media; fullscreen" allowfullscreen scrolling="no" allowtransparency="true" style="background: white; width: 100%; height: 100%; border: none;"></iframe>`;
         }
         else if (link.includes("tiktok.com")) {
             let videoId = "";
@@ -613,14 +614,14 @@ function renderVideo() {
             }
             if (videoId) {
                 const tkLink = `https://www.tiktok.com/embed/v2/${videoId}`;
-                // KODE KUNCI IZIN AUTOPLAY DAN MEDIA DITAMBAHKAN DI SINI
-                vc.innerHTML = `<iframe src="${tkLink}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen style="width: 100%; height: 100%; border: none;"></iframe>`;
+                vc.innerHTML = `<iframe src="${tkLink}" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen style="width: 100%; height: 100%; border: none;"></iframe>`;
             } else {
                 vc.innerHTML = `<p style="color: #ff4b82; text-align: center; padding: 40px 0;">Maaf, gunakan link TikTok asli dari browser.</p>`;
             }
         }
         else {
-            vc.innerHTML = `<video src="${link}" controls autoplay loop muted playsinline style="width: 100%; height: 100%; border: none;"></video>`;
+            // Menghapus kata 'autoplay' dari tag video mp4
+            vc.innerHTML = `<video src="${link}" controls loop muted playsinline style="width: 100%; height: 100%; border: none;"></video>`;
         }
     } else {
         vc.innerHTML = '<p style="color: #ccc; text-align: center; padding: 40px 0;">Belum ada video.</p>';
