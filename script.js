@@ -670,3 +670,24 @@ if (deleteVideoBtn) {
         }
     });
 }
+
+// ================== Layar Sambutan & Pemicu Musik ==================
+const welcomeScreen = document.getElementById('welcomeScreen');
+const openBtn = document.getElementById('openBtn');
+// Pastikan ID 'bgMusic' sesuai dengan ID tag <audio> di HTML Anda
+const audioPlayer = document.getElementById('bgMusic'); 
+
+if (openBtn && welcomeScreen) {
+    openBtn.addEventListener('click', () => {
+        // 1. Memutar musik saat tombol ditekan
+        if (audioPlayer) {
+            audioPlayer.play().catch(error => console.log("Gagal memutar musik:", error));
+        }
+        
+        // 2. Menghilangkan layar sambutan dengan transisi halus
+        welcomeScreen.style.opacity = '0';
+        setTimeout(() => {
+            welcomeScreen.style.visibility = 'hidden';
+        }, 1000); // Menunggu 1 detik hingga efek pudar selesai
+    });
+}
