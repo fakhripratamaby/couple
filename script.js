@@ -598,13 +598,13 @@ function renderVideo() {
             if (link.includes("watch?v=")) link = link.replace("watch?v=", "embed/");
             else if (link.includes("youtu.be/")) link = link.replace("youtu.be/", "www.youtube.com/embed/");
             link = link.split('&')[0]; 
-            vc.innerHTML = `<iframe src="${link}" allowfullscreen></iframe>`;
+            vc.innerHTML = `<iframe src="${link}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="width: 100%; height: 100%; border: none;"></iframe>`;
         } 
         else if (link.includes("instagram.com")) {
             let igLink = link.split('?')[0]; 
             if (!igLink.endsWith('/')) igLink += '/'; 
             igLink += 'embed/'; 
-            vc.innerHTML = `<iframe src="${igLink}" allowfullscreen scrolling="no" allowtransparency="true" style="background: white;"></iframe>`;
+            vc.innerHTML = `<iframe src="${igLink}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen scrolling="no" allowtransparency="true" style="background: white; width: 100%; height: 100%; border: none;"></iframe>`;
         }
         else if (link.includes("tiktok.com")) {
             let videoId = "";
@@ -613,40 +613,19 @@ function renderVideo() {
             }
             if (videoId) {
                 const tkLink = `https://www.tiktok.com/embed/v2/${videoId}`;
-                vc.innerHTML = `<iframe src="${tkLink}" allowfullscreen></iframe>`;
+                // KODE KUNCI IZIN AUTOPLAY DAN MEDIA DITAMBAHKAN DI SINI
+                vc.innerHTML = `<iframe src="${tkLink}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen style="width: 100%; height: 100%; border: none;"></iframe>`;
             } else {
                 vc.innerHTML = `<p style="color: #ff4b82; text-align: center; padding: 40px 0;">Maaf, gunakan link TikTok asli dari browser.</p>`;
             }
         }
         else {
-            vc.innerHTML = `<video src="${link}" controls autoplay loop muted playsinline></video>`;
+            vc.innerHTML = `<video src="${link}" controls autoplay loop muted playsinline style="width: 100%; height: 100%; border: none;"></video>`;
         }
     } else {
         vc.innerHTML = '<p style="color: #ccc; text-align: center; padding: 40px 0;">Belum ada video.</p>';
     }
 }
-
-const saveVideoBtn = document.getElementById('saveVideoBtn');
-if (saveVideoBtn) {
-    // Hapus event listener lama agar tidak dobel (trik jitu)
-    const newSaveBtn = saveVideoBtn.cloneNode(true);
-    saveVideoBtn.parentNode.replaceChild(newSaveBtn, saveVideoBtn);
-    
-    newSaveBtn.addEventListener('click', () => {
-        siteData.videoLink = document.getElementById('inputVideoLink').value;
-        if (siteData.videoData) delete siteData.videoData; 
-        saveData(); // Menyimpan ke database
-        renderVideo(); // Memuat ulang tampilan
-        
-        const vStatus = document.getElementById('videoStatus');
-        if(vStatus) {
-            vStatus.textContent = 'Berhasil! Video diperbarui.';
-            vStatus.style.color = '#4ade80';
-            setTimeout(() => vStatus.textContent = '', 3000);
-        }
-    });
-}
-// ================================================================
 
 // Pastikan fungsi ini dipanggil saat web dimuat
 const originalRenderSocialsForVideo = renderSocials;
