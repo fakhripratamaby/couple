@@ -1218,3 +1218,24 @@ a:focus-visible,
         height: 145px;
     }
 }
+
+/* ================= TAMPILAN VIDEO PORTRAIT ================= */
+#videoContainer {
+    width: 100% !important;
+    max-width: 320px !important; /* Lebar maksimal layaknya layar HP */
+    aspect-ratio: 9 / 16 !important; /* Rasio tinggi/berdiri (Portrait) */
+    margin: 20px auto !important; /* Posisinya otomatis ke tengah */
+    border-radius: 12px !important; /* Ujung melengkung yang estetik */
+    overflow: hidden !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+    background-color: #1a1a24 !important;
+}
+
+/* Memastikan video di dalamnya terisi penuh tanpa terpotong jelek */
+#videoContainer iframe,
+#videoContainer video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border: none !important;
+}
