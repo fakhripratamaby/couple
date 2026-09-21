@@ -693,26 +693,29 @@ if (openBtn && welcomeScreen) {
     });
 }
 
-// ================== Fitur Play/Pause Tombol Musik Melayang ==================
+// ================== Perbaikan Total Tombol Musik Melayang ==================
 const floatingMusicBtn = document.getElementById('musicBtn');
 const audioLatar = document.getElementById('bgMusic');
 
 if (floatingMusicBtn && audioLatar) {
-    // Menghapus perintah lama agar tidak dobel/error
+    // Bersihkan event listener lama untuk mencegah konflik
     const newMusicBtn = floatingMusicBtn.cloneNode(true);
     floatingMusicBtn.parentNode.replaceChild(newMusicBtn, floatingMusicBtn);
     
-    newMusicBtn.addEventListener('click', () => {
+    newMusicBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Mencegah bentrok sentuhan dengan elemen lain
+        
         if (audioLatar.paused) {
-            // Jika musik sedang mati, maka putar
-            audioLatar.play();
-            newMusicBtn.style.opacity = '1'; // Tombol menyala terang
-            newMusicBtn.style.transform = 'scale(1)'; // Ukuran normal
+            // Coba paksa putar dari awal jika macet, atau lanjutkan
+            audioLatar.play().then(() => {
+                newMusicBtn.classList.add('playing'); // Menyalakan animasi putar
+            }).catch(err => {
+                console.log("Gagal memutar audio:", err);
+            });
         } else {
-            // Jika musik sedang berputar, maka hentikan sementara (pause)
+            // Hentikan musik sementara
             audioLatar.pause();
-            newMusicBtn.style.opacity = '0.5'; // Tombol menjadi redup tanda mati
-            newMusicBtn.style.transform = 'scale(0.9)'; // Sedikit mengecil
+            newMusicBtn.classList.remove('playing'); // Matikan animasi putar
         }
     });
 }
