@@ -1239,3 +1239,46 @@ a:focus-visible,
     object-fit: cover !important;
     border: none !important;
 }
+
+/* ================= TAMPILAN LAYAR SAMBUTAN ================= */
+.welcome-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #1a1a24; /* Warna gelap menyesuaikan tema web Anda */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Memastikan layar ini menutupi semuanya */
+    transition: opacity 1s ease, visibility 1s;
+    color: #fff;
+    text-align: center;
+}
+.welcome-screen h2 {
+    color: #ff4b82;
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+.welcome-screen p {
+    margin-bottom: 30px;
+    color: #ccc;
+    font-style: italic;
+}
+#openBtn {
+    padding: 12px 30px;
+    background: linear-gradient(45deg, #ff4b82, #ff8a9d);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 75, 130, 0.4);
+    animation: pulse 2s infinite;
+}
+
+/* Animasi tombol berdetak */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
