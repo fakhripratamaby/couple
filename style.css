@@ -1203,3 +1203,18 @@ a:focus-visible,
     z-index: 10;
     box-shadow: 5px 15px 30px rgba(0, 0, 0, 0.4);
 }
+
+/* Penyesuaian Galeri Scrapbook Khusus Layar HP */
+@media (max-width: 600px) {
+    .scrapbook-gallery {
+        gap: 15px;
+        padding: 2rem 0.5rem;
+    }
+    .scrapbook-item {
+        width: 145px; /* Ukuran yang pas untuk 2 kolom di HP */
+        padding: 8px 8px 35px 8px;
+    }
+    .scrapbook-item img {
+        height: 145px;
+    }
+}
