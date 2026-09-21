@@ -1282,3 +1282,14 @@ a:focus-visible,
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
+
+/* Animasi berputar untuk tombol musik yang sedang aktif */
+#musicBtn.playing {
+    animation: spinMusic 3s linear infinite;
+    box-shadow: 0 0 15px #ff4b82;
+}
+
+@keyframes spinMusic {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
