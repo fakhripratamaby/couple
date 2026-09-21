@@ -585,64 +585,42 @@ renderSocials = function() {
     originalRenderSocials();
     renderAdminSocialList();
 };
-// ================== Fitur Upload Video Pribadi ==================
+// ================== Fitur Video Universal ==================
 function renderVideo() {
     const vc = document.getElementById('videoContainer');
     if (!vc) return;
     
-    if (siteData.videoData) {
-        // Menampilkan pemutar video langsung di web
-        vc.innerHTML = `<video src="${siteData.videoData}" controls autoplay loop muted style="width: 100%; height: 100%; object-fit: cover;"></video>`;
+    if (siteData.videoLink) {
+        let link = siteData.videoLink;
+        if (link.includes("youtube.com") || link.includes("youtu.be")) {
+            if (link.includes("watch?v=")) link = link.replace("watch?v=", "embed/");
+            else if (link.includes("youtu.be/")) link = link.replace("youtu.be/", "www.youtube.com/embed/");
+            vc.innerHTML = `<iframe src="${link}" allowfullscreen></iframe>`;
+        } else {
+            // Memutar video MP4 langsung dari GitHub (Portrait/Landscape)
+            vc.innerHTML = `<video src="${link}" controls autoplay loop muted playsinline></video>`;
+        }
     } else {
-        vc.innerHTML = '<p style="color: #ccc; text-align: center;">Belum ada video.</p>';
+        vc.innerHTML = '<p style="color: #ccc; text-align: center; padding: 40px 0;">Belum ada video.</p>';
     }
 }
 
 const saveVideoBtn = document.getElementById('saveVideoBtn');
 if (saveVideoBtn) {
     saveVideoBtn.addEventListener('click', () => {
-        const fileInput = document.getElementById('inputVideoFile');
-        const vStatus = document.getElementById('videoStatus');
-
-        if (fileInput.files.length === 0) {
-            vStatus.textContent = 'Pilih file video dari galeri Anda!';
-            vStatus.style.color = '#ff4b4b';
-            return;
-        }
-
-        const file = fileInput.files[0];
-        // KUNCI PENGAMAN: Batas maksimal ukuran 50MB
-        if (file.size > 50 * 1024 * 1024) {
-            vStatus.textContent = 'Gagal: Ukuran video lebih dari 50MB! Web bisa macet.';
-            vStatus.style.color = '#ff4b4b';
-            return;
-        }
-
-        vStatus.textContent = 'Memproses video (jangan tutup panel)...';
-        vStatus.style.color = '#fff';
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            siteData.videoData = e.target.result;
-            saveData();
-            renderVideo();
-            vStatus.textContent = 'Video berhasil diupload ke database!';
-            vStatus.style.color = '#4ade80';
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-const deleteVideoBtn = document.getElementById('deleteVideoBtn');
-if (deleteVideoBtn) {
-    deleteVideoBtn.addEventListener('click', () => {
-        siteData.videoData = null;
+        siteData.videoLink = document.getElementById('inputVideoLink').value;
+        // Hapus data video base64 lama jika masih nyangkut agar memori lega
+        if (siteData.videoData) delete siteData.videoData; 
         saveData();
         renderVideo();
-        document.getElementById('videoStatus').textContent = 'Video berhasil dihapus.';
-        document.getElementById('inputVideoFile').value = '';
+        
+        const vStatus = document.getElementById('videoStatus');
+        vStatus.textContent = 'Berhasil! Video langsung tayang.';
+        vStatus.style.color = '#4ade80';
+        setTimeout(() => vStatus.textContent = '', 3000);
     });
 }
+
 
 // Pastikan fungsi ini dipanggil saat web dimuat
 const originalRenderSocialsForVideo = renderSocials;
