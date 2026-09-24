@@ -7,7 +7,7 @@
     <meta name="description" content="Perjalanan cinta Fakhri & Chatarina — hitungan hari, kisah, dan kenangan yang terus bertumbuh.">
     <meta property="og:title" content="Fakhri & Chatarina — Eternal Journey">
     <meta property="og:description" content="Perjalanan cinta Fakhri & Chatarina — hitungan hari, kisah, dan kenangan yang terus bertumbuh.">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='24' font-size='26'%3E%F0%9F%92%9B%3C/text%3E%3C/svg%3E">
+    <link id="favicon" rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='24' font-size='26'%3E%F0%9F%92%9B%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -161,6 +161,15 @@
             <div class="admin-content" id="adminContent" hidden>
                 <h2>Admin</h2>
               <section class="admin-section">
+
+<!-- ================= FITUR GANTI IKON TAB ================= -->
+<div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 20px;">
+    <h3 style="color: white; font-size: 1rem; margin-bottom: 10px;">Ganti Ikon Tab (Favicon)</h3>
+    <p style="color: #ccc; font-size: 0.8rem; margin-bottom: 10px;">Pilih foto/logo (disarankan ukuran kecil & bentuk kotak).</p>
+    <input type="file" id="inputFavicon" accept="image/*" style="width: 100%; padding: 10px; background: #2a2a35; color: white; border-radius: 10px; margin-bottom: 10px;">
+    <button id="saveFaviconBtn" class="admin-btn" style="background: linear-gradient(45deg, #f59e0b, #fbbf24);">Simpan Ikon Tab</button>
+</div>
+
     <h3>Ubah Tema UI</h3>
     <select id="themeSelect" style="width: 100%; padding: 10px; border-radius: 8px; background: rgba(0,0,0,0.3); color: white; border: 1px solid rgba(255,255,255,0.2); outline: none;">
         <option value="dark">Dark Theme (Bawaan)</option>
