@@ -719,3 +719,47 @@ if (floatingMusicBtn && audioLatar) {
         }
     });
 }
+
+// ================== Fitur Ubah Ikon Tab (Favicon) ==================
+document.addEventListener("DOMContentLoaded", () => {
+    const faviconElement = document.getElementById('favicon');
+    
+    // 1. Tampilkan ikon yang sudah tersimpan saat web dibuka
+    if (siteData.faviconUrl && faviconElement) {
+        faviconElement.href = siteData.faviconUrl;
+    }
+
+    // 2. Fungsi tombol simpan ikon di Panel Admin
+    const saveFaviconBtn = document.getElementById('saveFaviconBtn');
+    const inputFavicon = document.getElementById('inputFavicon');
+
+    if (saveFaviconBtn && inputFavicon) {
+        saveFaviconBtn.addEventListener('click', () => {
+            const file = inputFavicon.files[0];
+            if (!file) {
+                alert('Pilih foto terlebih dahulu!');
+                return;
+            }
+
+            // Membaca foto dan mengubahnya menjadi data yang bisa disimpan
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                
+                // Simpan ke memori (database)
+                siteData.faviconUrl = imageData;
+                saveData(); 
+                
+                // Langsung ubah ikon di tab tanpa perlu refresh
+                if (faviconElement) {
+                    faviconElement.href = imageData;
+                }
+                
+                alert('Berhasil! Ikon tab sudah diubah.');
+            };
+            
+            // Proses pembacaan file
+            reader.readAsDataURL(file);
+        });
+    }
+});
