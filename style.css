@@ -1293,3 +1293,28 @@ a:focus-visible,
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+/* ================= DESAIN TOMBOL MUSIK BARU ================= */
+.new-music-btn {
+    position: fixed;
+    bottom: 85px; /* Berada sedikit di atas tombol admin */
+    right: 20px;
+    background: linear-gradient(45deg, #ff4b82, #ff8a9d);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 75, 130, 0.4);
+    cursor: pointer;
+    z-index: 99999; /* PASTI DI PALING ATAS */
+    transition: all 0.3s ease;
+}
+
+/* Tampilan saat musik dimatikan */
+.new-music-btn.dimatikan {
+    background: #444; /* Warna abu-abu gelap */
+    box-shadow: none;
+    opacity: 0.8;
+}
