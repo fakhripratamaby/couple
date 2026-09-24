@@ -1343,3 +1343,14 @@ img:hover {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* ================= SENTUHAN GLASSMORPHISM ================= */
+/* Terapkan pada elemen kotak utama Anda (sesuaikan nama class-nya jika perlu) */
+.timer-card, .video-container, .admin-overlay .admin-panel {
+    background: rgba(255, 255, 255, 0.03) !important; /* Sangat transparan */
+    backdrop-filter: blur(12px) !important; /* Efek buram kaca */
+    -webkit-backdrop-filter: blur(12px) !important; /* Dukungan untuk iPhone/Safari */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Garis tepi kaca tipis */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important; /* Bayangan lembut */
+    border-radius: 24px !important; /* Sudut membulat yang lebih empuk */
+}
