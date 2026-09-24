@@ -777,3 +777,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// ================== SAKLAR MUSIK BARU ==================
+document.addEventListener("DOMContentLoaded", () => {
+    const tombolMusikBaru = document.getElementById('toggleMusicBtn');
+    const audioLatar = document.getElementById('bgMusic');
+
+    if (tombolMusikBaru && audioLatar) {
+        tombolMusikBaru.addEventListener('click', (e) => {
+            e.stopPropagation(); // Menembus halangan transparan
+            
+            if (audioLatar.paused) {
+                audioLatar.play();
+                tombolMusikBaru.classList.remove('dimatikan');
+                tombolMusikBaru.innerHTML = '🎵 Musik: ON';
+            } else {
+                audioLatar.pause();
+                tombolMusikBaru.classList.add('dimatikan');
+                tombolMusikBaru.innerHTML = '🔇 Musik: OFF';
+            }
+        });
+    }
+});
