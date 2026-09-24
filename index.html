@@ -214,7 +214,7 @@
     <input type="text" id="tlTitle" placeholder="Kejadian (Cth: Nonton film perdana)" style="width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 8px; background:#1a1a24; color:white; border:1px solid #444;">
     <p style="color: #ccc; font-size: 0.8rem; margin-bottom: 5px;">Pilih Foto (Gunakan trik screenshot agar ukuran kecil):</p>
     <input type="file" id="tlPhoto" accept="image/*" style="width: 100%; margin-bottom: 10px; padding: 10px; background: #2a2a35; color: white; border-radius: 8px;">
-    <button id="btnSaveTimeline" class="admin-btn" style="background: #a855f7;">Simpan ke Jurnal</button>
+    <button id="btnSaveJurnal" class="admin-btn" style="background: #a855f7;">Simpan ke Jurnal</button>
 </div>
 
 <div class="admin-section">
@@ -254,14 +254,14 @@
 </audio>
 <button id="musicBtn" class="music-btn">🎵</button>
 
-<!-- ================= HALAMAN MENU JURNAL (TIMELINE) ================= -->
-<div id="timelineMenu" class="timeline-menu-overlay" hidden>
-    <div class="timeline-header">
+<!-- ================= HALAMAN MENU JURNAL (ANTI BENTROK) ================= -->
+<div id="jurnalMenu" class="jurnal-menu-overlay" hidden>
+    <div class="jurnal-header">
         <h2 class="text-gradient">Jurnal Cinta Kita</h2>
-        <button id="btnCloseTimeline" class="close-timeline">&times;</button>
+        <button id="btnCloseJurnal" class="close-jurnal">&times;</button>
     </div>
-    <div class="timeline-content" id="timelineContent">
-        <!-- Catatan kenangan akan muncul otomatis di sini -->
+    <div class="jurnal-content-area" id="jurnalContentArea">
+        <!-- Catatan kenangan akan muncul di sini -->
     </div>
 </div>
     
