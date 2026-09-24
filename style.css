@@ -1370,66 +1370,39 @@ img:hover {
     background: #ff4b82;
 }
 
-/* ================= DESAIN HALAMAN JURNAL (TIMELINE) ================= */
-.timeline-menu-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: #12121a; /* Warna latar sangat gelap */
-    z-index: 99990; /* Berada di atas web utama, tapi di bawah tombol musik */
-    overflow-y: auto;
-    padding: 20px;
-    color: white;
-    /* Efek transisi saat dibuka */
-    animation: slideUp 0.5s ease forwards;
+/* ================= DESAIN HALAMAN JURNAL BARU ================= */
+.jurnal-menu-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #12121a; z-index: 99990; overflow-y: auto;
+    padding: 20px; color: white; animation: slideUp 0.5s ease forwards;
 }
-
-@keyframes slideUp {
-    from { transform: translateY(100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.timeline-header {
+.jurnal-header {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 30px; margin-top: 20px;
     border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;
 }
-
-.close-timeline {
-    background: none; border: none; color: #ff4b82;
-    font-size: 3rem; cursor: pointer; line-height: 1;
+.close-jurnal {
+    background: none; border: none; color: #ff4b82; font-size: 3rem; cursor: pointer;
 }
-
-/* Garis Waktu Vertikal */
-.timeline-content {
+.jurnal-content-area {
     position: relative; max-width: 600px; margin: 0 auto;
 }
-.timeline-content::after {
+.jurnal-content-area::after {
     content: ''; position: absolute; width: 4px; background: #ff4b82;
     top: 0; bottom: 0; left: 20px; border-radius: 2px;
 }
-
-/* Kartu Kenangan (Glassmorphism) */
-.timeline-item {
+.jurnal-item {
     position: relative; padding-left: 50px; margin-bottom: 30px;
 }
-.timeline-item::before {
-    content: '❤'; position: absolute; left: 8px; top: 0;
-    width: 28px; height: 28px; background: #1a1a24;
-    border: 2px solid #ff4b82; border-radius: 50%;
-    color: #ff4b82; font-size: 14px;
-    display: flex; align-items: center; justify-content: center; z-index: 1;
+.jurnal-item::before {
+    content: '❤'; position: absolute; left: 8px; top: 0; width: 28px; height: 28px;
+    background: #1a1a24; border: 2px solid #ff4b82; border-radius: 50%;
+    color: #ff4b82; font-size: 14px; display: flex; align-items: center; justify-content: center; z-index: 1;
 }
-
-.timeline-card {
+.jurnal-card {
     background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px);
     padding: 15px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
-.timeline-card h4 { color: #ff8a9d; margin-bottom: 5px; font-size: 1.1rem; }
-.timeline-card p { font-size: 0.95rem; margin-bottom: 15px; color: #e2e2e2; }
-.timeline-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
-
-.del-timeline-btn {
-    background: #ef4444; color: white; border: none; padding: 6px 15px;
-    border-radius: 8px; font-size: 0.8rem; cursor: pointer; width: 100%;
-}
+.jurnal-card h4 { color: #ff8a9d; margin-bottom: 5px; font-size: 1.1rem; }
+.jurnal-card p { font-size: 0.95rem; margin-bottom: 15px; color: #e2e2e2; }
+.jurnal-card img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
