@@ -831,110 +831,87 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// ================== OTAK FITUR TIMELINE / JURNAL ==================
+// ================== OTAK FITUR JURNAL (ANTI BENTROK) ==================
 document.addEventListener("DOMContentLoaded", () => {
-    // Siapkan wadah penyimpanan di database jika belum ada
-    if (!siteData.timeline) siteData.timeline = [];
+    if (!siteData.jurnal) siteData.jurnal = []; // Buat database terpisah
 
-    const btnOpenTimeline = document.getElementById('btnOpenTimeline');
-    const btnCloseTimeline = document.getElementById('btnCloseTimeline');
-    const timelineMenu = document.getElementById('timelineMenu');
-    const timelineContent = document.getElementById('timelineContent');
+    const btnOpenTimeline = document.getElementById('btnOpenTimeline'); // Tombol ungu di layar depan
+    const btnCloseJurnal = document.getElementById('btnCloseJurnal');
+    const jurnalMenu = document.getElementById('jurnalMenu');
+    const jurnalContentArea = document.getElementById('jurnalContentArea');
 
-    // 1. Logika Buka/Tutup Menu Jurnal
-    if (btnOpenTimeline && timelineMenu && btnCloseTimeline) {
+    if (btnOpenTimeline && jurnalMenu && btnCloseJurnal) {
         btnOpenTimeline.addEventListener('click', () => {
-            timelineMenu.hidden = false;
-            renderTimeline(); // Tampilkan data saat menu dibuka
+            jurnalMenu.hidden = false;
+            renderJurnal();
         });
-        btnCloseTimeline.addEventListener('click', () => {
-            timelineMenu.hidden = true;
-        });
+        btnCloseJurnal.addEventListener('click', () => jurnalMenu.hidden = true);
     }
 
-    // 2. Fungsi Simpan Jurnal Baru dari Admin
-    const btnSaveTimeline = document.getElementById('btnSaveTimeline');
+    const btnSaveJurnal = document.getElementById('btnSaveJurnal');
     const tlDate = document.getElementById('tlDate');
     const tlTitle = document.getElementById('tlTitle');
     const tlPhoto = document.getElementById('tlPhoto');
 
-    if (btnSaveTimeline) {
-        btnSaveTimeline.addEventListener('click', () => {
+    if (btnSaveJurnal) {
+        btnSaveJurnal.addEventListener('click', () => {
             const dateVal = tlDate.value.trim();
             const titleVal = tlTitle.value.trim();
             const file = tlPhoto.files[0];
 
             if (!dateVal || !titleVal) {
-                alert('Waktu dan Kejadian harus diisi ya!');
+                alert('Waktu dan Kejadian harus diisi!');
                 return;
             }
 
-            // Jika ada foto yang diupload
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    simpanKeJurnal(dateVal, titleVal, e.target.result);
-                };
+                reader.onload = function(e) { simpanKeJurnal(dateVal, titleVal, e.target.result); };
                 reader.readAsDataURL(file);
             } else {
-                // Jika hanya teks tanpa foto
                 simpanKeJurnal(dateVal, titleVal, ""); 
             }
         });
     }
 
     function simpanKeJurnal(date, title, photoBase64) {
-        siteData.timeline.push({
-            id: Date.now(), // ID unik berdasarkan waktu simpan
-            date: date,
-            title: title,
-            photo: photoBase64
-        });
-        saveData(); // Simpan ke sistem
-        
-        alert('Kenangan berhasil diabadikan di Jurnal!');
-        tlDate.value = ''; tlTitle.value = ''; tlPhoto.value = ''; // Kosongkan form
-        
-        // Update layar jika menu sedang terbuka
-        if (!timelineMenu.hidden) renderTimeline();
+        siteData.jurnal.push({ id: Date.now(), date: date, title: title, photo: photoBase64 });
+        saveData();
+        alert('Berhasil disimpan ke Jurnal!');
+        tlDate.value = ''; tlTitle.value = ''; tlPhoto.value = '';
+        if (!jurnalMenu.hidden) renderJurnal();
     }
 
-    // 3. Fungsi Menampilkan Jurnal ke Layar
-    window.renderTimeline = function() {
-        if (!timelineContent) return;
-        timelineContent.innerHTML = ''; // Bersihkan layar sebelum mencetak ulang
+    window.renderJurnal = function() {
+        if (!jurnalContentArea) return;
+        jurnalContentArea.innerHTML = ''; 
         
-        if (siteData.timeline.length === 0) {
-            timelineContent.innerHTML = '<p style="text-align:center; color:#ccc; margin-top:30px;">Belum ada kenangan yang dicatat.<br>Tambahkan melalui Panel Admin!</p>';
+        if (siteData.jurnal.length === 0) {
+            jurnalContentArea.innerHTML = '<p style="text-align:center; color:#ccc; margin-top:30px;">Belum ada kenangan. Tambahkan di Panel Admin!</p>';
             return;
         }
 
-        // Urutkan dari yang terbaru (opsional) atau sesuai urutan input
-        siteData.timeline.forEach((item) => {
+        siteData.jurnal.forEach((item) => {
             const div = document.createElement('div');
-            div.className = 'timeline-item';
-            
-            // Cek apakah ada foto atau tidak
+            div.className = 'jurnal-item';
             const imgHTML = item.photo ? `<img src="${item.photo}" alt="Kenangan">` : '';
-            
             div.innerHTML = `
-                <div class="timeline-card">
+                <div class="jurnal-card">
                     <h4>${item.date}</h4>
                     <p>${item.title}</p>
                     ${imgHTML}
-                    <button class="del-timeline-btn" onclick="hapusTimeline(${item.id})">🗑️ Hapus Kenangan</button>
+                    <button class="del-timeline-btn" onclick="hapusJurnal(${item.id})">🗑️ Hapus</button>
                 </div>
             `;
-            timelineContent.appendChild(div);
+            jurnalContentArea.appendChild(div);
         });
     };
 
-    // 4. Fungsi Hapus Jurnal
-    window.hapusTimeline = function(id) {
-        if (confirm('Yakin ingin menghapus kenangan ini?')) {
-            siteData.timeline = siteData.timeline.filter(t => t.id !== id);
+    window.hapusJurnal = function(id) {
+        if (confirm('Yakin ingin menghapus?')) {
+            siteData.jurnal = siteData.jurnal.filter(t => t.id !== id);
             saveData();
-            renderTimeline();
+            renderJurnal();
         }
     };
 });
