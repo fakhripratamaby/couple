@@ -799,3 +799,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// ================== ANIMASI UI/UX (SCROLL REVEAL) ==================
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Pilih elemen apa saja yang mau dianimasikan secara otomatis
+    // Anda bisa tambahkan class lain di sini jika perlu
+    const elemenUntukDianimasikan = document.querySelectorAll('.timer-card, section, h2, .video-container, img');
+
+    // 2. Pasang class 'reveal-item' ke semua elemen tersebut secara otomatis
+    elemenUntukDianimasikan.forEach(el => {
+        el.classList.add('reveal-item');
+    });
+
+    // 3. Sensor pintar untuk mendeteksi scroll layar
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Jika elemen sudah masuk atau terlihat di layar (minimal 15%)
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // (Opsional) Matikan observer jika hanya ingin animasi 1x saja
+                // observer.unobserve(entry.target); 
+            }
+        });
+    }, {
+        threshold: 0.15 // Animasi terpicu saat 15% elemen sudah terlihat
+    });
+
+    // 4. Nyalakan sensor untuk setiap elemen
+    elemenUntukDianimasikan.forEach(el => {
+        observer.observe(el);
+    });
+});
