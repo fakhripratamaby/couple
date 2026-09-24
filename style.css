@@ -1354,3 +1354,18 @@ img:hover {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important; /* Bayangan lembut */
     border-radius: 24px !important; /* Sudut membulat yang lebih empuk */
 }
+
+/* ================= SCROLLBAR KUSTOM ================= */
+::-webkit-scrollbar {
+    width: 8px; /* Lebar scrollbar yang lebih ramping */
+}
+::-webkit-scrollbar-track {
+    background: #1a1a24; /* Warna rel gelap menyesuaikan background Anda */
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff4b82, #ff8a9d); /* Gradasi cantik */
+    border-radius: 10px; /* Ujung yang membulat */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff4b82;
+}
