@@ -830,3 +830,111 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(el);
     });
 });
+
+// ================== OTAK FITUR TIMELINE / JURNAL ==================
+document.addEventListener("DOMContentLoaded", () => {
+    // Siapkan wadah penyimpanan di database jika belum ada
+    if (!siteData.timeline) siteData.timeline = [];
+
+    const btnOpenTimeline = document.getElementById('btnOpenTimeline');
+    const btnCloseTimeline = document.getElementById('btnCloseTimeline');
+    const timelineMenu = document.getElementById('timelineMenu');
+    const timelineContent = document.getElementById('timelineContent');
+
+    // 1. Logika Buka/Tutup Menu Jurnal
+    if (btnOpenTimeline && timelineMenu && btnCloseTimeline) {
+        btnOpenTimeline.addEventListener('click', () => {
+            timelineMenu.hidden = false;
+            renderTimeline(); // Tampilkan data saat menu dibuka
+        });
+        btnCloseTimeline.addEventListener('click', () => {
+            timelineMenu.hidden = true;
+        });
+    }
+
+    // 2. Fungsi Simpan Jurnal Baru dari Admin
+    const btnSaveTimeline = document.getElementById('btnSaveTimeline');
+    const tlDate = document.getElementById('tlDate');
+    const tlTitle = document.getElementById('tlTitle');
+    const tlPhoto = document.getElementById('tlPhoto');
+
+    if (btnSaveTimeline) {
+        btnSaveTimeline.addEventListener('click', () => {
+            const dateVal = tlDate.value.trim();
+            const titleVal = tlTitle.value.trim();
+            const file = tlPhoto.files[0];
+
+            if (!dateVal || !titleVal) {
+                alert('Waktu dan Kejadian harus diisi ya!');
+                return;
+            }
+
+            // Jika ada foto yang diupload
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    simpanKeJurnal(dateVal, titleVal, e.target.result);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Jika hanya teks tanpa foto
+                simpanKeJurnal(dateVal, titleVal, ""); 
+            }
+        });
+    }
+
+    function simpanKeJurnal(date, title, photoBase64) {
+        siteData.timeline.push({
+            id: Date.now(), // ID unik berdasarkan waktu simpan
+            date: date,
+            title: title,
+            photo: photoBase64
+        });
+        saveData(); // Simpan ke sistem
+        
+        alert('Kenangan berhasil diabadikan di Jurnal!');
+        tlDate.value = ''; tlTitle.value = ''; tlPhoto.value = ''; // Kosongkan form
+        
+        // Update layar jika menu sedang terbuka
+        if (!timelineMenu.hidden) renderTimeline();
+    }
+
+    // 3. Fungsi Menampilkan Jurnal ke Layar
+    window.renderTimeline = function() {
+        if (!timelineContent) return;
+        timelineContent.innerHTML = ''; // Bersihkan layar sebelum mencetak ulang
+        
+        if (siteData.timeline.length === 0) {
+            timelineContent.innerHTML = '<p style="text-align:center; color:#ccc; margin-top:30px;">Belum ada kenangan yang dicatat.<br>Tambahkan melalui Panel Admin!</p>';
+            return;
+        }
+
+        // Urutkan dari yang terbaru (opsional) atau sesuai urutan input
+        siteData.timeline.forEach((item) => {
+            const div = document.createElement('div');
+            div.className = 'timeline-item';
+            
+            // Cek apakah ada foto atau tidak
+            const imgHTML = item.photo ? `<img src="${item.photo}" alt="Kenangan">` : '';
+            
+            div.innerHTML = `
+                <div class="timeline-card">
+                    <h4>${item.date}</h4>
+                    <p>${item.title}</p>
+                    ${imgHTML}
+                    <button class="del-timeline-btn" onclick="hapusTimeline(${item.id})">🗑️ Hapus Kenangan</button>
+                </div>
+            `;
+            timelineContent.appendChild(div);
+        });
+    };
+
+    // 4. Fungsi Hapus Jurnal
+    window.hapusTimeline = function(id) {
+        if (confirm('Yakin ingin menghapus kenangan ini?')) {
+            siteData.timeline = siteData.timeline.filter(t => t.id !== id);
+            saveData();
+            renderTimeline();
+        }
+    };
+});
