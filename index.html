@@ -72,6 +72,12 @@
             <p class="next-anniversary" id="nextAnniversary"></p>
         </section>
 
+<!-- Tombol Buka Menu Jurnal -->
+<div style="text-align: center; margin: 40px 0;">
+    <button id="btnOpenTimeline" class="admin-btn" style="background: linear-gradient(45deg, #a855f7, #d946ef); padding: 15px 30px; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(217, 70, 239, 0.4);">
+        📖 Buka Jurnal Cinta Kita
+    </button>
+</div>
         <section class="timeline-section">
             <h2 class="section-title reveal">Timeline Kita</h2>
             <div class="timeline">
@@ -238,6 +244,17 @@
 </audio>
 <button id="musicBtn" class="music-btn">🎵</button>
 
+<!-- ================= HALAMAN MENU JURNAL (TIMELINE) ================= -->
+<div id="timelineMenu" class="timeline-menu-overlay" hidden>
+    <div class="timeline-header">
+        <h2 class="text-gradient">Jurnal Cinta Kita</h2>
+        <button id="btnCloseTimeline" class="close-timeline">&times;</button>
+    </div>
+    <div class="timeline-content" id="timelineContent">
+        <!-- Catatan kenangan akan muncul otomatis di sini -->
+    </div>
+</div>
+    
     <script type="module" src="script.js"></script>
 </body>
 </html>
