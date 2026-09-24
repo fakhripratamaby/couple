@@ -1318,3 +1318,28 @@ a:focus-visible,
     box-shadow: none;
     opacity: 0.8;
 }
+
+/* ================= ANIMASI UI/UX PROFESIONAL ================= */
+
+/* Efek transisi empuk untuk semua gambar/foto */
+img, .video-container {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+/* Efek sedikit membesar saat foto ditekan/dilihat */
+img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Base class untuk elemen yang akan muncul saat di-scroll */
+.reveal-item {
+    opacity: 0;
+    transform: translateY(40px); /* Posisi awal sedikit di bawah */
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); /* Efek per kembang lambat */
+}
+
+/* Class saat elemen masuk ke layar */
+.reveal-item.active {
+    opacity: 1;
+    transform: translateY(0);
+}
