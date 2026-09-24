@@ -693,32 +693,46 @@ if (openBtn && welcomeScreen) {
     });
 }
 
-// ================== Perbaikan Total Tombol Musik Melayang ==================
-const floatingMusicBtn = document.getElementById('musicBtn');
-const audioLatar = document.getElementById('bgMusic');
+// ================== PENGONTROL MUSIK ANTI-MACET ==================
+document.addEventListener("DOMContentLoaded", () => {
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
+    const openBtn = document.getElementById('openBtn');
+    const welcomeScreen = document.getElementById('welcomeScreen');
 
-if (floatingMusicBtn && audioLatar) {
-    // Bersihkan event listener lama untuk mencegah konflik
-    const newMusicBtn = floatingMusicBtn.cloneNode(true);
-    floatingMusicBtn.parentNode.replaceChild(newMusicBtn, floatingMusicBtn);
-    
-    newMusicBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); // Mencegah bentrok sentuhan dengan elemen lain
+    // 1. Layar Sambutan (Play pertama kali)
+    if (openBtn && welcomeScreen && bgMusic) {
+        openBtn.addEventListener('click', () => {
+            bgMusic.play().catch(e => console.log("Gagal:", e));
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => welcomeScreen.style.visibility = 'hidden', 1000);
+            if (musicBtn) {
+                musicBtn.classList.add('playing');
+                musicBtn.style.opacity = '1';
+            }
+        });
+    }
+
+    // 2. Tombol Bulat (Play / Pause Murni)
+    if (musicBtn && bgMusic) {
+        // Trik kloning: menghapus semua ingatan kode lama yang nyangkut di tombol
+        const cleanBtn = musicBtn.cloneNode(true);
+        musicBtn.parentNode.replaceChild(cleanBtn, musicBtn);
         
-        if (audioLatar.paused) {
-            // Coba paksa putar dari awal jika macet, atau lanjutkan
-            audioLatar.play().then(() => {
-                newMusicBtn.classList.add('playing'); // Menyalakan animasi putar
-            }).catch(err => {
-                console.log("Gagal memutar audio:", err);
-            });
-        } else {
-            // Hentikan musik sementara
-            audioLatar.pause();
-            newMusicBtn.classList.remove('playing'); // Matikan animasi putar
-        }
-    });
-}
+        cleanBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                cleanBtn.classList.add('playing');
+                cleanBtn.style.opacity = '1';
+            } else {
+                bgMusic.pause();
+                cleanBtn.classList.remove('playing');
+                cleanBtn.style.opacity = '0.5'; // Meredup saat dimatikan
+            }
+        });
+    }
+});
+// =================================================================
 
 // ================== Fitur Ubah Ikon Tab (Favicon) ==================
 document.addEventListener("DOMContentLoaded", () => {
